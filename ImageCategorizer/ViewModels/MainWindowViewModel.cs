@@ -15,6 +15,10 @@ namespace ImageCategorizer.ViewModels
     {
         public MainWindowViewModel()
         {
+            if (!Directory.Exists("img"))
+            {
+                Directory.CreateDirectory("img");
+            }
             if (File.Exists("output.json"))
             {
                 _imageInfos = JsonSerializer.Deserialize<ImageInfo[]>(File.ReadAllText("output.json"))!.ToList();
@@ -32,8 +36,11 @@ namespace ImageCategorizer.ViewModels
             {
                 var iInfo = await SaveAll.Handle(Unit.Default);
 
-                if (iInfo.PreviewImage != null && !_imageInfos.Any(x => x.PreviewImage == iInfo.PreviewImage))
+                if (iInfo.PreviewImage != null)
                 {
+                    var newPath = "img/" + Guid;
+                    File.Copy(iInfo.PreviewImage, newPath);
+                    iInfo.PreviewImage = newPath;
                     _imageInfos.Add(iInfo);
                     File.WriteAllText("output.json", JsonSerializer.Serialize(_imageInfos));
                     Guid = Guid.NewGuid();

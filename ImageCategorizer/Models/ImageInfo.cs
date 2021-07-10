@@ -2,6 +2,7 @@
 {
     public class ImageInfo
     {
+        public string Id { set; get; }
         public string PreviewImage { set; get; }
         public string[] SerieNames { init; get; }
         public string[] Characters { init; get; }

@@ -25,15 +25,25 @@ namespace ImageCategorizer.ViewModels
 
                 if (iInfo.PreviewImage != null)
                 {
+                    iInfo.Id = Guid.ToString();
+
                     var fi = new FileInfo(iInfo.PreviewImage);
-                    var newPath = "img/" + string.Join("_", iInfo.Characters
+
+                    var serieFolder = iInfo.SerieNames.Length > 1 ? "crossover" : iInfo.SerieNames[0].ToLowerInvariant();
+
+                    if (!Directory.Exists("img/" + serieFolder))
+                    {
+                        Directory.CreateDirectory("img/" + serieFolder);
+                    }
+
+                    var newPath = "img/" + serieFolder  + "/" + string.Join("_", iInfo.Characters
                         ?.Select(x => string.Join("", x.ToCharArray().Where(x => char.IsLetterOrDigit(x))))
                         ?.Where(x => x.Length > 0)
                         ?.OrderBy(x => x)
                         ?.ToArray() ?? Array.Empty<string>()) + "_" + Guid + fi.Extension;
                     File.Move(iInfo.PreviewImage, newPath);
                     iInfo.PreviewImage = newPath;
-                    _imageInfos.Add(iInfo);
+                    _imageInfos!.Add(iInfo);
                     File.WriteAllText("output.json", JsonSerializer.Serialize(_imageInfos));
                     Guid = Guid.NewGuid();
                     await ClearAllFields.Handle(Unit.Default);

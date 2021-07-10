@@ -79,13 +79,13 @@ namespace ImageCategorizer.Views
             interaction.SetOutput(new()
             {
                 PreviewImage = _currentImage,
-                SerieNames = this.FindControl<TextBox>("SerieNames").Text?.Split(',')?.Select(x => x.Trim())?.ToArray() ?? Array.Empty<string>(),
-                Characters = this.FindControl<TextBox>("Characters").Text?.Split(',')?.Select(x => x.Trim())?.ToArray() ?? Array.Empty<string>(),
+                SerieNames = this.FindControl<TextBox>("SerieNames").Text?.Split(',')?.Select(x => x.Trim())?.Where(x => x.Length > 0)?.ToArray() ?? Array.Empty<string>(),
+                Characters = this.FindControl<TextBox>("Characters").Text?.Split(',')?.Select(x => x.Trim())?.Where(x => x.Length > 0)?.ToArray() ?? Array.Empty<string>(),
                 SourceName = this.FindControl<TextBox>("SourceName").Text,
                 Artist = this.FindControl<TextBox>("Artist").Text,
                 SourceUrl = this.FindControl<TextBox>("SourceUrl").Text,
                 Rating = this.FindControl<ComboBox>("Rating").SelectedIndex,
-                RatingTags = this.FindControl<TextBox>("RatingTags").Text?.Split(',')?.Select(x => x.Trim())?.ToArray() ?? Array.Empty<string>()
+                RatingTags = this.FindControl<TextBox>("RatingTags").Text?.Split(',')?.Select(x => x.Trim())?.Where(x => x.Length > 0)?.ToArray() ?? Array.Empty<string>()
             });
             return Task.CompletedTask;
         }

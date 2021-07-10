@@ -23,16 +23,25 @@
         <RowDefinition Height="*" />
         <RowDefinition Height="*" />
         <RowDefinition Height="*" />
+        <RowDefinition Height="*" />
       </Grid.RowDefinitions>
 
-      <Button Grid.Row="0">Load Image</Button>
+      <StackPanel Orientation="Horizontal"
+                  Grid.Row="0"
+                  VerticalAlignment="Center">
+        <Button Command="{Binding LoadImage}">Load Image</Button>
+        <TextBlock Margin="50 5 0 0">ID:</TextBlock>
+        <TextBlock Name="ID" Margin="10 5 0 0"></TextBlock>
+      </StackPanel>
 
       <StackPanel Grid.Row="1">
         <TextBlock HorizontalAlignment="Center">Tags</TextBlock>
         <TextBox Watermark="Serie Names (Separated by commas)"
+                 Name="SerieNames"
                  Height="30"
                  Width="500"></TextBox>
         <TextBox Watermark="Characters (Separated by commas)"
+                 Name="Characters"
                  Height="30"
                  Width="500"></TextBox>
       </StackPanel>
@@ -40,23 +49,34 @@
       <StackPanel Grid.Row="2">
         <TextBlock HorizontalAlignment="Center">Source</TextBlock>
         <TextBox Watermark="Source Name"
+                 Name="SourceName"
                  Height="30"
                  Width="500"></TextBox>
         <TextBox Watermark="Source URL"
+                 Name="SourceUrl"
                  Height="30"
                  Width="500"></TextBox>
       </StackPanel>
 
       <StackPanel Grid.Row="3">
         <TextBlock HorizontalAlignment="Center">Rating</TextBlock>
-        <ComboBox SelectedIndex="0">
+        <ComboBox SelectedIndex="0"
+                  Name="Rating">
           <ComboBoxItem>Safe</ComboBoxItem>
           <ComboBoxItem>Questionable</ComboBoxItem>
           <ComboBoxItem>Explicit</ComboBoxItem>
         </ComboBox>
         <TextBox Watermark="Rating Tags"
+                 Name="RatingTags"
                  Height="30"
                  Width="500"></TextBox>
+      </StackPanel>
+
+      <StackPanel Orientation="Horizontal"
+                  Grid.Row="4"
+                  HorizontalAlignment="Center">
+        <Button Command="{Binding Save}">Save</Button>
+        <Button Command="{Binding Clear}">Clear</Button>
       </StackPanel>
 
     </Grid>

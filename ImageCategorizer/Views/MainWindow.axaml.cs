@@ -2,13 +2,14 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using Avalonia.ReactiveUI;
+using Avalonia.Threading;
 using ImageCategorizer.ViewModels;
 using ReactiveUI;
 using System.Collections.Generic;
 using System.Reactive;
 using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
 
 namespace ImageCategorizer.Views
 {
@@ -54,7 +55,10 @@ namespace ImageCategorizer.Views
                 var files = await s.ConfigureAwait(false);
                 if (files.Length > 0)
                 {
-                    this.FindControl<Image>("PreviewImage").Source = new BitmapImage()
+                    Dispatcher.UIThread.Post(() =>
+                    {
+                        this.FindControl<Image>("PreviewImage").Source = new Bitmap(files[0]);
+                    });
                 }
             }).ConfigureAwait(false);
             interaction.SetOutput(Unit.Default);

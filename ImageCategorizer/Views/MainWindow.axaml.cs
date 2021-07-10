@@ -26,6 +26,7 @@ namespace ImageCategorizer.Views
 #endif
             this.WhenActivated(_ =>
             {
+                ViewModel!.Init();
                 ViewModel!.ShowSelectImageDialog.RegisterHandler(ShowSelectImageDialog);
                 ViewModel!.SaveAll.RegisterHandler(SaveAll);
                 ViewModel!.ClearAllFields.RegisterHandler(ClearAllFields);

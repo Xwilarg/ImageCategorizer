@@ -15,19 +15,6 @@ namespace ImageCategorizer.ViewModels
     {
         public MainWindowViewModel()
         {
-            if (!Directory.Exists("img"))
-            {
-                Directory.CreateDirectory("img");
-            }
-            if (File.Exists("output.json"))
-            {
-                _imageInfos = JsonSerializer.Deserialize<ImageInfo[]>(File.ReadAllText("output.json"))!.ToList();
-            }
-            else
-            {
-                _imageInfos = new();
-            }
-
             LoadImage = ReactiveCommand.CreateFromTask(async () =>
             {
                 await ShowSelectImageDialog.Handle(Unit.Default);
@@ -56,6 +43,22 @@ namespace ImageCategorizer.ViewModels
             {
                 await ClearAllFields.Handle(Unit.Default);
             });
+        }
+
+        public void Init()
+        {
+            if (!Directory.Exists("img"))
+            {
+                Directory.CreateDirectory("img");
+            }
+            if (File.Exists("output.json"))
+            {
+                _imageInfos = JsonSerializer.Deserialize<ImageInfo[]>(File.ReadAllText("output.json"))!.ToList();
+            }
+            else
+            {
+                _imageInfos = new();
+            }
         }
 
         private List<ImageInfo> _imageInfos;

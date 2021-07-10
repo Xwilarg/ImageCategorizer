@@ -81,7 +81,8 @@ namespace ImageCategorizer.Views
                 SerieNames = this.FindControl<TextBox>("SerieNames").Text?.Split(',')?.Select(x => x.Trim())?.ToArray() ?? Array.Empty<string>(),
                 Characters = this.FindControl<TextBox>("Characters").Text?.Split(',')?.Select(x => x.Trim())?.ToArray() ?? Array.Empty<string>(),
                 SourceName = this.FindControl<TextBox>("SourceName").Text,
-                SourceUrl = this.FindControl<TextBox>("SourceName").Text,
+                Artist = this.FindControl<TextBox>("Artist").Text,
+                SourceUrl = this.FindControl<TextBox>("SourceUrl").Text,
                 Rating = this.FindControl<ComboBox>("Rating").SelectedIndex,
                 RatingTags = this.FindControl<TextBox>("RatingTags").Text?.Split(',')?.Select(x => x.Trim())?.ToArray() ?? Array.Empty<string>()
             });
@@ -95,6 +96,7 @@ namespace ImageCategorizer.Views
             this.FindControl<TextBox>("SerieNames").Text = "";
             this.FindControl<TextBox>("Characters").Text = "";
             this.FindControl<TextBox>("SourceName").Text = "";
+            this.FindControl<TextBox>("Artist").Text = "";
             this.FindControl<TextBox>("SourceUrl").Text = "";
             this.FindControl<ComboBox>("Rating").SelectedIndex = 0;
             this.FindControl<TextBox>("RatingTags").Text = "";

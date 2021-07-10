@@ -38,8 +38,13 @@ namespace ImageCategorizer.ViewModels
 
                 if (iInfo.PreviewImage != null)
                 {
-                    var newPath = "img/" + Guid;
-                    File.Copy(iInfo.PreviewImage, newPath);
+                    var fi = new FileInfo(iInfo.PreviewImage);
+                    var newPath = "img/" + string.Join("_", iInfo.Characters
+                        ?.Select(x => string.Join("", x.ToCharArray().Where(x => char.IsLetterOrDigit(x))))
+                        ?.Where(x => x.Length > 0)
+                        ?.OrderBy(x => x)
+                        ?.ToArray() ?? Array.Empty<string>()) + "_" + Guid + fi.Extension;
+                    File.Move(iInfo.PreviewImage, newPath);
                     iInfo.PreviewImage = newPath;
                     _imageInfos.Add(iInfo);
                     File.WriteAllText("output.json", JsonSerializer.Serialize(_imageInfos));

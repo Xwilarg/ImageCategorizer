@@ -56,6 +56,10 @@
                  Name="SourceUrl"
                  Height="30"
                  Width="500"></TextBox>
+        <TextBox Watermark="Artist"
+                 Name="Artist"
+                 Height="30"
+                 Width="500"></TextBox>
       </StackPanel>
 
       <StackPanel Grid.Row="3">

@@ -24,6 +24,7 @@ namespace ImageCategorizer.Views
             this.WhenActivated(_ =>
             {
                 ViewModel!.ShowSelectImageDialog.RegisterHandler(ShowSelectImageDialog);
+                ViewModel!.ClearAllFields.RegisterHandler(ClearAllFields);
             });
         }
 
@@ -61,6 +62,18 @@ namespace ImageCategorizer.Views
                     });
                 }
             }).ConfigureAwait(false);
+            interaction.SetOutput(Unit.Default);
+        }
+
+        private async Task ClearAllFields(InteractionContext<Unit, Unit> interaction)
+        {
+            this.FindControl<Image>("PreviewImage").Source = null;
+            this.FindControl<TextBox>("SerieNames").Text = "";
+            this.FindControl<TextBox>("Characters").Text = "";
+            this.FindControl<TextBox>("SourceName").Text = "";
+            this.FindControl<TextBox>("SourceUrl").Text = "";
+            this.FindControl<ComboBox>("Rating").SelectedIndex = 0;
+            this.FindControl<TextBox>("RatingTags").Text = "";
             interaction.SetOutput(Unit.Default);
         }
     }

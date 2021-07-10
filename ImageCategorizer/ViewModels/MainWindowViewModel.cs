@@ -14,9 +14,15 @@ namespace ImageCategorizer.ViewModels
             {
                 await ShowSelectImageDialog.Handle(Unit.Default);
             });
+            Clear = ReactiveCommand.CreateFromTask(async () =>
+            {
+                await ClearAllFields.Handle(Unit.Default);
+            });
+
         }
 
         public Interaction<Unit, Unit> ShowSelectImageDialog { get; } = new();
+        public Interaction<Unit, Unit> ClearAllFields { get; } = new();
 
         public ICommand LoadImage { get; }
         public ICommand Save { get; }
